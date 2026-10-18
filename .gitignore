@@ -1,0 +1,44 @@
+# diodic-search.pdf IS tracked -- it is the distribution artifact: a reader
+# who opens the repository downloads the paper without a TeX install, and
+# GitHub renders it straight from the tree. The Zenodo preprint, DOI
+# 10.5281/zenodo.23453407, remains the citable record; the two must be kept in
+# step, so rebuild and commit the PDF whenever the .tex changes:
+#
+#   pdflatex diodic-search.tex   (x3 -- the first pass writes the
+#   cross-references, the second reads them, the third settles the page
+#   breaks. Without the third pass float placement and the reference
+#   format are unstable.)
+#
+# .gitattributes already carries *.pdf binary, so core.autocrlf cannot corrupt
+# the stream. A rebuild is byte-deterministic here; if a diff ever shows up on
+# a source-only change, something in the build stopped being reproducible.
+
+# $out/ is the build directory when a pdflatex run is redirected out of the
+# tree. Generated, never source -- and a stale build sits untracked in git
+# status looking like work to review.
+/$out/
+/*.tex.orig
+/*.tex.bak
+*.aux
+*.log
+*.out
+*.toc
+*.bbl
+*.blg
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.nav
+*.snm
+*.vrb
+*.bcf
+*.run.xml
+*.spl
+
+# /.worktrees/ holds worktrees created by `git worktree add` -- one directory
+# per branch, each a full checkout plus its own .git pointer. Scaffolding, never
+# source: without this line it shows up as untracked on every git status and can
+# be swept into a commit by `git add -A`.
+/.worktrees/
+
+/artifacts/

@@ -1,0 +1,9 @@
+# Line-ending policy: pin LF in the repository and in the working tree so a
+# diff is always about the change and never about the line endings.
+# core.autocrlf is true on the authoring machine. Binaries are marked
+# binary so autocrlf never rewrites them: a CRLF rewrite is a silent
+# corruption of a PDF stream.
+* text=auto eol=lf
+*.pdf binary
+*.png binary
+*.jpg binary
